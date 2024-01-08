@@ -2,7 +2,6 @@
 #include <vector>
 #include <math.h>
 
-#include <iostream>
 
 using namespace std;
 
@@ -45,15 +44,6 @@ int main()
     vector<int> a = {1,3,5,-1,-4,-5,1,4};
     vector<int> b = {2,4,7,0,-3,-4,2,5};
     vector<int> c = {-5,-1,3,-4,2,-6,4,-1};
-
-    try
-    {
-        a.size() == b.size() ? 1 : 0;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
     
     cout<<"corr(a,b): "<<corr(a,b)<<"\n";
     cout<<"corr(a,c): "<<corr(a,c)<<"\n";
