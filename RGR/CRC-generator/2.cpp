@@ -76,4 +76,54 @@ int main()
         cout<<packet[i];
     }
     cout<<"\n";
+    std::ifstream inputFile("../ASCII-coder/output.txt");   
+    std::ofstream outputFile("output.txt"); 
+    
+    if (inputFile.is_open() && outputFile.is_open()) { 
+        std::string fullSequence;
+        
+        while (std::getline(inputFile, fullSequence)) { 
+            for (char c : fullSequence) { 
+                
+                outputFile << c; 
+            }
+            for (int i = PACKET_LENGTH; i < PACKET_LENGTH + n; i++) //добавление n-1 нулей    
+            {
+                
+                outputFile << packet[i];
+            }
+            
+            outputFile << std::endl; 
+        }
+
+        
+        std::cout << "Successfully added CRC sequence and saved in output.txt." << std::endl;
+        
+        inputFile.close(); 
+        outputFile.close(); 
+    } else {
+        std::cerr << "Failed to open input.txt or output.txt." << std::endl;
+    }
+
+    std::ofstream outputFile_crc("crc.txt"); 
+
+    if (outputFile_crc.is_open()) { 
+
+        
+        for (int i = PACKET_LENGTH; i < PACKET_LENGTH + n; i++) //добавление n-1 нулей    
+            {
+                
+                outputFile_crc << packet[i];
+            }
+            
+        outputFile_crc << std::endl; 
+
+        
+        std::cout << "Successfully added CRC sequence and saved in output.txt." << std::endl;
+        
+        inputFile.close(); 
+        outputFile.close(); 
+    } else {
+        std::cerr << "Failed to open input.txt or output.txt." << std::endl;
+    }
 }

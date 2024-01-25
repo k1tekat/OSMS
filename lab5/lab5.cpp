@@ -8,7 +8,7 @@
 
 using namespace std;
 
-#define PACKET_LENGTH 32
+#define PACKET_LENGTH 250
 #define CRC_LENGTH 8
 
 
@@ -110,8 +110,6 @@ int main()
 
     for(int i = 0;i< PACKET_LENGTH;i++)
         packet[i] = original[i];
-    
-
     output(packet);
 
 
@@ -133,7 +131,7 @@ int main()
                     packet[j+k] = packet[j+k] ^ generator[k];
                 }
             }
-        }
+        } 
 
         for (int h = 0; h < PACKET_LENGTH + CRC_LENGTH; h++) {
             if (packet[h] == 1) {

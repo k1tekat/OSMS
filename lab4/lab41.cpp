@@ -90,7 +90,13 @@ int main()
     vector<int> y = {1,0,0,1,1}; //12 + 7 = 19
 
     vector<int> x_edit = {0,1,1,0,1};//12 + 1 = 13
-    vector<int> y_edit = {0,0,1,1,1};//12 - 5 = 7 
+    vector<int> y_edit = {0,1,1,1,1};//12 - 5 = 7 
+
+    vector<int> x_edit2 = {0,0,1,0,1};//12 + 1 = 13
+    vector<int> y_edit2 = {1,0,0,0,1};//12 - 5 = 7 
+
+    vector<int> x_edit3 = {0,0,1,1,1};//12 + 1 = 13
+    vector<int> y_edit3 = {0,0,0,0,1};//12 - 5 = 7 
 
     gold_seq(original,x,y);
     output_vect(original);
@@ -102,11 +108,45 @@ int main()
     printf("Сдвиг|              Биты               | Автокорреляция\n");
 
     // Вывод строк таблицы
-    for (int shift = 0; shift < BIT_DEPTH; shift++) {
+    for (int shift = 0; shift <= BIT_DEPTH; shift++) {
         printf("%4d | ", shift);
 
         // Вывод битов оригинала
-        for (int i = 0; i < BIT_DEPTH - 1; i++) {
+        for (int i = 0; i < BIT_DEPTH ; i++) {
+            printf("%d", move[i]);
+        }
+
+        printf(" | ");
+
+        //  вычисление автокорреляции
+        float corr = norm_corr(original,move);
+
+        printf("%+1.3f\n", corr);
+
+
+        // replace
+        int last_place = move[BIT_DEPTH-1];
+        for(int i = move.size();i > 0; i--)
+            move[i] = move[i-1];
+        move[0] = last_place;
+    }
+    cout<<"\n";
+
+    output_vect(move);
+    gold_seq(arr,x_edit2,y_edit2);
+
+    move = arr;
+
+
+    // Вывод заголовка таблицы
+    printf("Сдвиг|              Биты               | Автокорреляция\n");
+
+    // Вывод строк таблицы
+    for (int shift = 0; shift <= BIT_DEPTH; shift++) {
+        printf("%4d | ", shift);
+
+        // Вывод битов оригинала
+        for (int i = 0; i < BIT_DEPTH ; i++) {
             printf("%d", move[i]);
         }
 
@@ -127,11 +167,43 @@ int main()
     cout<<"\n";
 
 
-    gold_seq(arr,x_edit,y_edit);
-    output_vect(original);
-    output_vect(arr);
+       gold_seq(arr,x_edit3,y_edit3);
 
-    cout<<"\nnorm corr: "<<norm_corr(original,arr)<<"\n\n";
+    move = arr;
+    output_vect(move);
+
+
+    // Вывод заголовка таблицы
+    printf("Сдвиг|              Биты               | Автокорреляция\n");
+
+    // Вывод строк таблицы
+    for (int shift = 0; shift <= BIT_DEPTH; shift++) {
+        printf("%4d | ", shift);
+
+        // Вывод битов оригинала
+        for (int i = 0; i < BIT_DEPTH ; i++) {
+            printf("%d", move[i]);
+        }
+
+        printf(" | ");
+
+        //  вычисление автокорреляции
+        float corr = norm_corr(original,move);
+
+        printf("%+1.3f\n", corr);
+
+
+        // replace
+        int last_place = move[BIT_DEPTH-1];
+        for(int i = move.size();i > 0; i--)
+            move[i] = move[i-1];
+        move[0] = last_place;
+    }
+    cout<<"\n";
+    //output_vect(original);
+    //output_vect(arr);
+
+    //cout<<"\nnorm corr: "<<norm_corr(original,arr)<<"\n\n";
 
 
    
